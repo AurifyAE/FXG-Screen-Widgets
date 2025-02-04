@@ -6,7 +6,7 @@ import TradingViewWidget3 from "./components/TradingViewWidget3";
 function App() {
   return (
     <Router>
-      <div className="w-screen h-screen flex flex-col">
+      <div className="w-screen h-screen flex flex-col bg-[#242424]">
         <div className="flex-grow">
           <Routes>
             <Route path="/" element={<TradingViewWidget />} />
