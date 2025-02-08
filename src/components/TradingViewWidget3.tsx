@@ -1,55 +1,38 @@
 import React, { useEffect, useRef } from "react";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo2.png";
 
 const TradingViewWidgets: React.FC = () => {
-  const marketOverviewRef = useRef<HTMLDivElement | null>(null);
+  const bitcoinChartRef = useRef<HTMLDivElement | null>(null);
   const technicalAnalysisRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    // Market Overview Widget
-    if (marketOverviewRef.current) {
-      marketOverviewRef.current.innerHTML = "";
+    // Bitcoin Candlestick Chart Widget
+    if (bitcoinChartRef.current) {
+      bitcoinChartRef.current.innerHTML = "";
 
-      const marketScript = document.createElement("script");
-      marketScript.src =
-        "https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js";
-      marketScript.type = "text/javascript";
-      marketScript.async = true;
-      marketScript.innerHTML = JSON.stringify({
-        colorTheme: "dark",
-        dateRange: "1D",
-        showChart: true,
+      const bitcoinScript = document.createElement("script");
+      bitcoinScript.src =
+        "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
+      bitcoinScript.type = "text/javascript";
+      bitcoinScript.async = true;
+      bitcoinScript.innerHTML = JSON.stringify({
+        autosize: true,
+        symbol: "BINANCE:BTCUSDT",
+        interval: "1",
+        timezone: "Etc/UTC",
+        theme: "dark",
+        style: "1", // Candlestick chart
         locale: "en",
-        largeChartUrl: "",
-        isTransparent: false,
-        showSymbolLogo: true,
-        showFloatingTooltip: false,
-        width: "100%",
-        height: "100%",
-        plotLineColorGrowing: "rgba(41, 98, 255, 1)",
-        plotLineColorFalling: "rgba(41, 98, 255, 1)",
-        gridLineColor: "rgba(42, 46, 57, 0)",
-        scaleFontColor: "rgba(219, 219, 219, 1)",
-        belowLineFillColorGrowing: "rgba(41, 98, 255, 0.12)",
-        belowLineFillColorFalling: "rgba(41, 98, 255, 0.12)",
-        belowLineFillColorGrowingBottom: "rgba(41, 98, 255, 0)",
-        belowLineFillColorFallingBottom: "rgba(41, 98, 255, 0)",
-        symbolActiveColor: "rgba(41, 98, 255, 0.12)",
-        tabs: [
-          {
-            title: "Futures",
-            symbols: [
-              { s: "CAPITALCOM:GOLD" },
-              { s: "CAPITALCOM:SILVER" },
-              { s: "CAPITALCOM:PLATINUM" },
-              { s: "CAPITALCOM:COPPER" },
-            ],
-            originalTitle: "Futures",
-          },
-        ],
+        hide_legend: false,
+        allow_symbol_change: false,
+        gridColor: "rgba(66, 66, 66, 0)",
+        save_image: false,
+        calendar: false,
+        hide_volume: false,
+        support_host: "https://www.tradingview.com",
       });
 
-      marketOverviewRef.current.appendChild(marketScript);
+      bitcoinChartRef.current.appendChild(bitcoinScript);
     }
 
     // Technical Analysis Widget
@@ -68,7 +51,7 @@ const TradingViewWidgets: React.FC = () => {
         height: "100%",
         symbol: "TVC:GOLD",
         showIntervalTabs: true,
-        displayMode: "single",
+        displayMode: "multiple",
         locale: "en",
         colorTheme: "dark",
       });
@@ -78,24 +61,21 @@ const TradingViewWidgets: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-4 p-4 h-screen">
+    <div className="flex flex-col gap-4 p-4 h-screen bg-black">
       {/* Logo header with fixed height */}
       <div className="flex justify-center items-center p-3">
-        <img src={logo} alt="Company Logo" className="w-60 h-22" />
+        <img src={logo} alt="Company Logo" className="w-130 h-32" />
       </div>
 
       <div className="flex flex-row gap-20 h-screen justify-between w-full">
-        {/* Market Overview Widget */}
-        <div className="tradingview-widget-container" ref={marketOverviewRef}>
+        {/* Bitcoin Candlestick Chart */}
+        <div className="tradingview-widget-container flex-1" ref={bitcoinChartRef}>
           <div className="tradingview-widget-container__widget"></div>
         </div>
 
         {/* Technical Analysis Widget */}
-        <div
-          className="tradingview-widget-container"
-          ref={technicalAnalysisRef}
-        >
-          <div className="tradingview-widget-container__widget"></div>
+        <div className="tradingview-widget-container flex-1 bg-black" ref={technicalAnalysisRef}>
+          <div className="tradingview-widget-container__widget bg-black"></div>
         </div>
       </div>
     </div>

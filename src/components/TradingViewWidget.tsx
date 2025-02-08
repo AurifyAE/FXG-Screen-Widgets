@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, memo } from "react";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo2.png";
 
 const TradingViewWidget: React.FC = () => {
   const container = useRef<HTMLDivElement | null>(null);
@@ -28,6 +28,7 @@ const TradingViewWidget: React.FC = () => {
       calendar: false,
       hide_volume: true,
       support_host: "https://www.tradingview.com",
+      backgroundColor: "#000000",
     });
 
     container.current.appendChild(script);
@@ -40,10 +41,10 @@ const TradingViewWidget: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen bg-black">
       {/* Logo header with fixed height */}
       <div className="flex justify-center items-center p-3">
-        <img src={logo} alt="Company Logo" className="w-60 h-22" />
+        <img src={logo} alt="Company Logo" className="w-130 h-32" />
       </div>
 
       {/* Chart container with responsive height */}
